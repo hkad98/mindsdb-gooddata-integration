@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  gooddata-cn-ce:
+    image: gooddata/gooddata-cn-ce:2.0.0
+    ports:
+      - "3000:3000"
+      - "5432:5432"
+    environment:
+      LICENSE_AND_PRIVACY_POLICY_ACCEPTED: "YES"
+      APP_LOGLEVEL: "INFO"
+    volumes:
+      - gooddata-cn-ce-data:/data
+
+  mindsdb:
+    image: mindsdb/mindsdb:22.6.2.2
+    ports:
+      - "47334:47334"
+      - "47335:47335"
+      - "47336:47336"
+    volumes:
+      - mindsdb-data:/data
+
+  gooddata-fdw:
+    build:
+      context: https://github.com/gooddata/gooddata-python-sdk.git#1.0.0
+      dockerfile: gooddata-fdw/Dockerfile
+    ports:
+      - "2543:5432"
+    volumes:
+      - gooddata-fdw-data:/data
+    environment:
+      POSTGRES_DB: gooddata
+      POSTGRES_USER: gooddata
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD-gooddata123}"
+    command: ["postgres", "-c", "shared_preload_libraries=foreign_table_exposer", "-c", "log_statement=all", "-c", "client_min_messages=DEBUG1", "-c", "log_min_messages=DEBUG1"]
+
+  upload-data:
+    build:
+      context: .
+      dockerfile: upload_data/Dockerfile
+    environment:
+      HOST: "http://gooddata-cn-ce:3000"
+    depends_on:
+      - gooddata-cn-ce
+    command: [ "python3", "upload_data.py" ]
+
+volumes:
+  gooddata-cn-ce-data:
+  mindsdb-data:
+  gooddata-fdw-data:

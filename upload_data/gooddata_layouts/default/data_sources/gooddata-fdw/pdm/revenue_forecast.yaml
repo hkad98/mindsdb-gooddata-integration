@@ -1,0 +1,18 @@
+columns:
+- dataType: DATE
+  isPrimaryKey: false
+  name: date_month
+- dataType: NUMERIC
+  isPrimaryKey: false
+  name: forecast
+- dataType: STRING
+  isPrimaryKey: false
+  name: region
+- dataType: NUMERIC
+  isPrimaryKey: false
+  name: revenue
+id: revenue_forecast
+path:
+- demo
+- revenue_forecast
+type: VIEW

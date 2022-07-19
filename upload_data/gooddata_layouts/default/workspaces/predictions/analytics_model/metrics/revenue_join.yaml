@@ -1,0 +1,6 @@
+content:
+  format: '#,##0'
+  maql: SELECT SUM(IFNULL({fact/revenue}, 0) + IFNULL({fact/forecast}, 0))
+description: ''
+id: revenue_join
+title: Revenue join

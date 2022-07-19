@@ -1,0 +1,63 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: revenue_join
+                type: metric
+        localIdentifier: 8f8de88160e24d2b91df7a148ed1345c
+        title: Revenue join
+    - measure:
+        definition:
+          measureDefinition:
+            aggregation: sum
+            filters: []
+            item:
+              identifier:
+                id: forecast
+                type: fact
+        format: '#,##0.00'
+        localIdentifier: 795174c439ac4501b826fc48774d3335
+        title: Sum of Forecast
+    - measure:
+        definition:
+          measureDefinition:
+            aggregation: sum
+            filters: []
+            item:
+              identifier:
+                id: revenue
+                type: fact
+        format: '#,##0.00'
+        localIdentifier: ec1522f10ac94d0590b350c7dc26c33b
+        title: Sum of Revenue
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: date_month.month
+            type: label
+        localIdentifier: 862722492b164e1d81fbe5116a8566e9
+    localIdentifier: trend
+  filters:
+  - positiveAttributeFilter:
+      displayForm:
+        identifier:
+          id: region
+          type: label
+      in:
+        values:
+        - Northeast
+        - West
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:line
+description: Prediction
+id: prediction
+title: Prediction

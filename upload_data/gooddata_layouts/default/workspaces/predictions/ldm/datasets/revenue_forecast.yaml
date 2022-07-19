@@ -1,0 +1,38 @@
+attributes:
+- description: Region
+  id: region
+  labels: []
+  sourceColumn: region
+  tags:
+  - Revenue forecast
+  title: Region
+dataSourceTableId:
+  dataSourceId: gooddata-fdw
+  id: revenue_forecast
+  type: dataSource
+description: Revenue forecast
+facts:
+- description: Forecast
+  id: forecast
+  sourceColumn: forecast
+  tags:
+  - Revenue forecast
+  title: Forecast
+- description: Revenue
+  id: revenue
+  sourceColumn: revenue
+  tags:
+  - Revenue forecast
+  title: Revenue
+grain: []
+id: revenue_forecast
+references:
+- identifier:
+    id: date_month
+    type: dataset
+  multivalue: false
+  sourceColumns:
+  - date_month
+tags:
+- Revenue forecast
+title: Revenue forecast

@@ -1,1 +1,16 @@
-# mindsdb-gooddata-integration
+# MindsDB Integration With GoodData Using Headless BI Layer
+
+This repository belongs to the medium article [MindsDB Integration With GoodData Using Headless BI Layer]().
+
+For the step-by-step tutorial, please, follow [tutorial file](TUTORIAL.md).
+
+Used technologies:
+* [MindsDB](https://mindsdb.com/)
+* [GoodData Cloud Native](https://www.gooddata.com/)
+
+Related interesting articles:
+* [MindsDB Documentation](https://docs.mindsdb.com/)
+* [GoodData Cloud Native Documentation](https://www.gooddata.com/developers/cloud-native/doc/)
+* [How To Automate Data Analytics Using CI/CD](https://medium.com/gooddata-developers/how-to-automate-data-analytics-using-ci-cd-9f1475065d61)
+* [How To Automate Your Statistical Data Analysis](https://medium.com/gooddata-developers/how-to-automate-your-statistical-data-analysis-852f1a463b95)
+* [Python SDK for Composable and Reusable Analytics](https://medium.com/gooddata-developers/python-sdk-for-composable-and-reusable-analytics-ee7c62bdc342)
