@@ -49,7 +49,7 @@ CREATE SERVER multicorn_gooddata FOREIGN DATA WRAPPER multicorn
 ```
 To import insights to the Postgres database execute the following command:
 ```sql
-CALL import_gooddata('demo', 'insights');
+CALL import_gooddata(workspace := 'demo', object_type := 'insights');
 ```
 After these steps, you should be able to access insight revenue in time from the Postgres database.
 Let us try to query it!

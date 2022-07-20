@@ -23,7 +23,7 @@ services:
 
   gooddata-fdw:
     build:
-      context: https://github.com/gooddata/gooddata-python-sdk.git#1.0.0
+      context: https://github.com/gooddata/gooddata-python-sdk.git#v1.0.0
       dockerfile: gooddata-fdw/Dockerfile
     ports:
       - "2543:5432"
