@@ -59,7 +59,7 @@ SELECT * FROM gooddata.demo.revenue_in_time;
 
 # 4. MindsDB
 
-First, we need to add the data source we want to work with. We will add GoodData FDW set in the previous step using the following command:
+First, we need to add the data source we want to work with. We will add GoodData FDW set in the previous step using the following command in running the MindsDB instance which is accessible from [http://127.0.0.1:47334/](http://127.0.0.1:47334/).
 
 ```sql
 CREATE DATABASE fdw_gooddata
@@ -78,8 +78,7 @@ Let us check if the data source was added successfully.
 SELECT * FROM fdw_gooddata.demo.revenue_in_time;
 ```
 
-Now we are ready to create a predictor. We want to predict revenue for each category in time.
-Month time granularity is used. We create a predictor using the following command:
+Now we are ready to create a model for predicting revenue. We want to forecast revenue for each category in month-time granularity. The query below creates such a model.
 
 ```sql
 CREATE PREDICTOR mindsdb.forecast_revenue
@@ -90,11 +89,12 @@ PREDICT revenue
 ORDER BY date_month
 GROUP BY region
 
-WINDOW 50 -- specifies the number of rows to "look back" into when making a prediction
-HORIZON 12; -- specifies the number of future predictions
+WINDOW 50
+HORIZON 12;
 ```
 
-The command triggers training. We can check the progress of the predictor in the following table. We are waiting for the predictor's status to be completed.
+The command triggers the training of the model. It is good to describe keywords WINDOW and HORIZON. WINDOW keyword specifies the number of rows to "look back" into when making a prediction, and the HORIZON keyword specifies the number of future predictions.
+We can check the progress of the predictor in the following table. We are waiting for the predictor's status to be completed.
 
 ```sql
 SELECT *
@@ -142,9 +142,9 @@ VIEW demo.revenue_forecast AS
 SELECT
     CAST(f."forecast_revenue.date_month"  AS DATE) AS date_month,
     f."forecast_revenue.region" AS region,
-    f.revenue AS revenue ,
+    CAST(f.revenue  AS FLOAT) AS revenue,
     CASE
-        WHEN revenue IS NULL THEN f."forecast_revenue.revenue"
+        WHEN f.revenue IS NULL THEN f."forecast_revenue.prediction"
         ELSE NULL
         END AS forecast
 FROM
@@ -155,7 +155,7 @@ WHERE
 
 # 6. Visualization of predictions in GoodData.CN
 
-There is a workspace named prediction back in GoodData.CN contains a metric "Revenue join," joining past and predicted revenue together, insight showing past revenue and predicted revenue.
+There is a workspace named prediction back in GoodData.CN. The workspace contains an insight named prediction which contains past and predicted revenue.
 
 ![Visualization of past and predicted revenue](content/images/prediction_insight.png)
 
