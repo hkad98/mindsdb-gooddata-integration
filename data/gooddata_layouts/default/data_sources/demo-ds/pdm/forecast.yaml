@@ -1,0 +1,18 @@
+columns:
+- dataType: NUMERIC
+  isPrimaryKey: false
+  name: prediction
+- dataType: STRING
+  isPrimaryKey: false
+  name: prediction_date_month
+- dataType: STRING
+  isPrimaryKey: false
+  name: prediction_region
+- dataType: STRING
+  isPrimaryKey: false
+  name: revenue
+id: forecast
+path:
+- demo
+- forecast
+type: TABLE

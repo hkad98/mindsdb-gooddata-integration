@@ -1,0 +1,7 @@
+content:
+  format: '#,##0'
+  maql: SELECT SUM(IFNULL({fact/revenue_forecast}, 0) + IFNULL({fact/revenue_forecast.revenue},
+    0))
+description: ''
+id: forecast_and_actual_revenue_join
+title: Forecast And Actual Revenue Join

@@ -11,7 +11,8 @@ RUN set -x \
 
 USER ${USER_NAME}
 WORKDIR /app
-COPY ./upload_data/ /app
+COPY data/upload_data/ /app
+COPY data/credentials.yaml /app/credentials.yaml
 
 RUN set -x \
   && pip3 install --no-cache-dir --user -r requirements.txt \

@@ -1,25 +1,25 @@
 attributes:
-- description: Region
-  id: region
+- description: Prediction region
+  id: revenue_forecast.prediction_region
   labels: []
-  sourceColumn: region
+  sourceColumn: prediction_region
   tags:
   - Revenue forecast
-  title: Region
+  title: Prediction region
 dataSourceTableId:
-  dataSourceId: gooddata-fdw
+  dataSourceId: demo-ds
   id: revenue_forecast
   type: dataSource
 description: Revenue forecast
 facts:
-- description: Forecast
-  id: forecast
-  sourceColumn: forecast
+- description: Revenue forecast
+  id: revenue_forecast
+  sourceColumn: revenue_forecast
   tags:
   - Revenue forecast
-  title: Forecast
+  title: Revenue forecast
 - description: Revenue
-  id: revenue
+  id: revenue_forecast.revenue
   sourceColumn: revenue
   tags:
   - Revenue forecast
@@ -28,11 +28,11 @@ grain: []
 id: revenue_forecast
 references:
 - identifier:
-    id: date_month
+    id: prediction_date
     type: dataset
   multivalue: false
   sourceColumns:
-  - date_month
+  - prediction_date
 tags:
 - Revenue forecast
 title: Revenue forecast

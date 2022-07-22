@@ -1,8 +1,0 @@
-enableCaching: false
-id: gooddata-fdw
-name: gooddata-fdw
-permissions: []
-schema: demo
-type: POSTGRESQL
-url: jdbc:postgresql://gooddata-fdw:5432/gooddata?sslmode=prefer
-username: gooddata

@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 
 layouts_path = Path("")
-credentials_path = Path("credentials.yaml")
+credentials_path = Path("./credentials.yaml")
 host = os.environ.get("HOST", "http://localhost:3000")
 token = os.environ.get("TOKEN", "YWRtaW46Ym9vdHN0cmFwOmFkbWluMTIz")
 header_host = os.environ.get("HEADER_HOST", "localhost")

@@ -7,10 +7,10 @@ content:
             filters: []
             item:
               identifier:
-                id: revenue_join
+                id: forecast_and_actual_revenue_join
                 type: metric
-        localIdentifier: 8f8de88160e24d2b91df7a148ed1345c
-        title: Revenue join
+        localIdentifier: d60fd821332a4de39cc3361641686862
+        title: Forecast And Actual Revenue Join
     - measure:
         definition:
           measureDefinition:
@@ -18,46 +18,44 @@ content:
             filters: []
             item:
               identifier:
-                id: forecast
+                id: revenue_forecast.revenue
                 type: fact
         format: '#,##0.00'
-        localIdentifier: 795174c439ac4501b826fc48774d3335
-        title: Sum of Forecast
-    - measure:
-        definition:
-          measureDefinition:
-            aggregation: sum
-            filters: []
-            item:
-              identifier:
-                id: revenue
-                type: fact
-        format: '#,##0.00'
-        localIdentifier: ec1522f10ac94d0590b350c7dc26c33b
+        localIdentifier: 959dd432bd8641a3a4d648a93c1329fc
         title: Sum of Revenue
+    - measure:
+        definition:
+          measureDefinition:
+            aggregation: sum
+            filters: []
+            item:
+              identifier:
+                id: revenue_forecast
+                type: fact
+        format: '#,##0.00'
+        localIdentifier: f7545e3aeea44c0aa751b1e32ed4c878
+        title: Sum of Revenue forecast
     localIdentifier: measures
   - items:
     - attribute:
         displayForm:
           identifier:
-            id: date_month.month
+            id: prediction_date.month
             type: label
-        localIdentifier: 862722492b164e1d81fbe5116a8566e9
+        localIdentifier: 3f191a4c529c457ca0130aadc0f5de15
     localIdentifier: trend
   filters:
-  - positiveAttributeFilter:
+  - negativeAttributeFilter:
       displayForm:
         identifier:
-          id: region
+          id: revenue_forecast.prediction_region
           type: label
-      in:
-        values:
-        - Northeast
-        - West
+      notIn:
+        uris: []
   properties: {}
   sorts: []
   version: '2'
   visualizationUrl: local:line
-description: Prediction
-id: prediction
-title: Prediction
+description: Revenue in time (prediction)
+id: revenue_in_time_prediction
+title: Revenue in time (prediction)

@@ -1,16 +1,16 @@
 columns:
 - dataType: DATE
   isPrimaryKey: false
-  name: date_month
-- dataType: NUMERIC
-  isPrimaryKey: false
-  name: forecast
+  name: prediction_date
 - dataType: STRING
   isPrimaryKey: false
-  name: region
+  name: prediction_region
 - dataType: NUMERIC
   isPrimaryKey: false
   name: revenue
+- dataType: NUMERIC
+  isPrimaryKey: false
+  name: revenue_forecast
 id: revenue_forecast
 path:
 - demo

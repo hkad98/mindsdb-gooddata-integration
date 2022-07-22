@@ -78,6 +78,20 @@ Let us check if the data source was added successfully.
 SELECT * FROM fdw_gooddata.demo.revenue_in_time;
 ```
 
+We will connect original data source connected to GoodData as well for further processing of the data.
+
+```sql
+CREATE DATABASE ds_gooddata
+WITH ENGINE = "postgres",
+PARAMETERS = {
+"user": "demouser",
+"password": "demopass",
+"host": "gooddata-cn-ce",
+"port": "5432",
+"database": "gooddata"
+};
+```
+
 Now we are ready to create a model for predicting revenue. We want to forecast revenue for each category in month-time granularity. The query below creates such a model.
 
 ```sql
@@ -113,25 +127,25 @@ WHERE t.date_month > LATEST AND t.region = 'South'
 LIMIT 4;
 ```
 
-As we can see, we can receive a forecast for the South region. Let us visualize it back in GoodData. For that purpose, we will create a table in GoodData FDW with predictions.
+As we can see, we can receive a forecast for the South region. Let us visualize it back in GoodData. For that purpose, we will create a table in origin data source "ds_gooddata" with predictions.
 
 ```sql
-CREATE OR REPLACE TABLE fdw_gooddata.demo.forecast (
-    SELECT m.date_month, 
+CREATE OR REPLACE TABLE ds_gooddata.demo.forecast (
+    SELECT m.date_month as prediction_date_month, 
            m.revenue as prediction, 
-           m.region, 
+           m.region as prediction_region, 
            t.revenue as revenue 
            FROM mindsdb.forecast_revenue as m 
     JOIN fdw_gooddata.demo.revenue_in_time as t
 );
 ```
 
-# 5. Predictions in GoodData FDW
+# 5. Prediction embedding
 
-Let us check that the forecast table was created back in GoodData FDW.
+Let us check that the forecast table was created back in original data source.
 
 ```sql
-SELECT * FROM gooddata.demo.forecast f;
+SELECT * FROM demo.demo.forecast f;
 ```
 
 We can see that the structure of imported predictions is not ideal. Let us create a view that we can use back in visualization.
@@ -140,22 +154,25 @@ We can see that the structure of imported predictions is not ideal. Let us creat
 CREATE OR REPLACE 
 VIEW demo.revenue_forecast AS
 SELECT
-    CAST(f."forecast_revenue.date_month"  AS DATE) AS date_month,
-    f."forecast_revenue.region" AS region,
+    CAST(f.prediction_date_month  AS DATE) AS prediction_date,
+    f.prediction_region AS prediction_region,
     CAST(f.revenue  AS FLOAT) AS revenue,
     CASE
-        WHEN f.revenue IS NULL THEN f."forecast_revenue.prediction"
+        WHEN f.revenue IS NULL THEN f.prediction
         ELSE NULL
-        END AS forecast
+        END AS revenue_forecast
 FROM
-    gooddata.demo.forecast f
+    demo.demo.forecast f
 WHERE
-    f."forecast_revenue.region" IS NOT NULL;
+    f.prediction_region IS NOT NULL;
+
 ```
 
 # 6. Visualization of predictions in GoodData.CN
 
-There is a workspace named prediction back in GoodData.CN. The workspace contains an insight named prediction which contains past and predicted revenue.
+There is a Jupyter notebook [setup_data.ipynb](setup_data.ipynb) for setting up new LDM, creating insight with predictions and updating a dashboard.
+Execute the code in the notebook, and you should see the following insight in the GoodData.CN
+
 
 ![Visualization of past and predicted revenue](content/images/prediction_insight.png)
 
