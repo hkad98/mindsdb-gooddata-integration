@@ -1,0 +1,46 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: revenue
+                type: metric
+        localIdentifier: fe61701924f84b7bbc6541c26bf28ba1
+        title: Revenue
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: date.month
+            type: label
+        localIdentifier: 08e495654cad464c91be6115218f3bec
+    localIdentifier: trend
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: region
+            type: label
+        localIdentifier: 7073dcad2f624fbdb74e38a8f15c6112
+    localIdentifier: segment
+  filters:
+  - negativeAttributeFilter:
+      displayForm:
+        identifier:
+          id: region
+          type: label
+      notIn:
+        values:
+        - Unknown
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:line
+description: Revenue in time
+id: revenue_in_time
+title: Revenue in time

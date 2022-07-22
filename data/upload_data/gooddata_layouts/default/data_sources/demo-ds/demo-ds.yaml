@@ -1,0 +1,8 @@
+enableCaching: false
+id: demo-ds
+name: demo-ds
+permissions: []
+schema: demo
+type: POSTGRESQL
+url: jdbc:postgresql://localhost:5432/demo
+username: demouser

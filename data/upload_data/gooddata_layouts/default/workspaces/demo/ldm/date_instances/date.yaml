@@ -18,7 +18,7 @@ granularities:
 granularitiesFormatting:
   titleBase: ''
   titlePattern: '%titleBase - %granularityTitle'
-id: date_month
+id: date
 tags:
-- Date month
-title: Date month
+- Date
+title: Date
