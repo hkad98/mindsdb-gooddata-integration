@@ -180,7 +180,7 @@ WHERE
 
 There is a Jupyter notebook [setup_data.ipynb](setup_data.ipynb) for setting up new LDM, creating insight with predictions and updating a dashboard.
 Execute the code in the notebook, and you should see the following insight with predictions in the GoodData.CN. 
-The actual revenue is distinguished from the predicted revenue.
+The actual revenue is distinguished from the predicted revenue by color.
 
 
 ![Visualization of past and predicted revenue](content/images/prediction_insight.png)
