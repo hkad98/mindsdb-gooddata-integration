@@ -24,12 +24,12 @@ Credentials for GoodData.CN are:
 
 See [MindsDB Documentation](https://docs.mindsdb.com/) and [GoodData.CN Documentation](https://www.gooddata.com/developers/cloud-native/doc/) or [GoodData University](https://university.gooddata.com/page/gooddatacn) for further overview.
 
-## 3. Connect to GoodData FDW and import insights
+## 3. Connect to SQL gateway and import insights
 
-GoodData FDW is an exposed Postgres database that allows you to expose data from GoodData.CN and consume them by other data consumers.
-To connect to GoodData FDW, I recommend using a database manager. For the purpose of this demo [DBeaver](https://dbeaver.io/) was used.
+The gooddata-fdw service exposes Postgres database that allows you to import insights from GoodData.CN as foreign tables using Foreign Data Wrapper technology and consume them by other data consumers.
+I recommend using a database manager to connect to Postgres database. For the purpose of this demo [DBeaver](https://dbeaver.io/) was used.
 
-The GoodData FDW is accessible with the following settings:
+The Postgres is accessible with the following settings:
 * host: localhost
 * port: 2543
 * username: gooddata
@@ -47,7 +47,7 @@ CREATE SERVER multicorn_gooddata FOREIGN DATA WRAPPER multicorn
     headers_host 'localhost'
   );
 ```
-To import insights to the Postgres database execute the following command:
+To import insights to the Postgres database as foreign tables, execute the following command:
 ```sql
 CALL import_gooddata(workspace := 'demo', object_type := 'insights');
 ```
@@ -59,7 +59,8 @@ SELECT * FROM gooddata.demo.revenue_in_time;
 
 # 4. MindsDB
 
-First, we need to add the data source we want to work with. We will add GoodData FDW set in the previous step using the following command in running the MindsDB instance which is accessible from [http://127.0.0.1:47334/](http://127.0.0.1:47334/).
+First, we need to add the data source we want to work with. 
+We will add Postgres database (SQL gateway) set in the previous step using the following command in running the MindsDB instance which is accessible from [http://127.0.0.1:47334/](http://127.0.0.1:47334/).
 
 ```sql
 CREATE DATABASE fdw_gooddata
@@ -78,17 +79,17 @@ Let us check if the data source was added successfully.
 SELECT * FROM fdw_gooddata.demo.revenue_in_time;
 ```
 
-We will connect original data source connected to GoodData as well for further processing of the data.
+We will connect original data source connected to GoodData as well for importing predictions back to the original data source.
 
 ```sql
 CREATE DATABASE ds_gooddata
-WITH ENGINE = "postgres",
-PARAMETERS = {
-"user": "demouser",
-"password": "demopass",
-"host": "gooddata-cn-ce",
-"port": "5432",
-"database": "gooddata"
+    WITH ENGINE = "postgres",
+    PARAMETERS = {
+    "user": "demouser",
+    "password": "demopass",
+    "host": "gooddata-cn-ce",
+    "port": "5432",
+    "database": "demo"
 };
 ```
 
@@ -142,13 +143,21 @@ CREATE OR REPLACE TABLE ds_gooddata.demo.forecast (
 
 # 5. Prediction embedding
 
+Our predictions are stored in the original data source. The original data source is accessible with the following settings:
+* host: localhost
+* port: 5432
+* username: demouser
+* password: demopass
+* database: demo
+
 Let us check that the forecast table was created back in original data source.
 
 ```sql
 SELECT * FROM demo.demo.forecast f;
 ```
 
-We can see that the structure of imported predictions is not ideal. Let us create a view that we can use back in visualization.
+We can see that the structure of imported predictions is not ideal. 
+Let us create a view that we can use back in visualization.
 
 ```sql
 CREATE OR REPLACE 
@@ -165,16 +174,13 @@ FROM
     demo.demo.forecast f
 WHERE
     f.prediction_region IS NOT NULL;
-
 ```
 
 # 6. Visualization of predictions in GoodData.CN
 
 There is a Jupyter notebook [setup_data.ipynb](setup_data.ipynb) for setting up new LDM, creating insight with predictions and updating a dashboard.
-Execute the code in the notebook, and you should see the following insight in the GoodData.CN
+Execute the code in the notebook, and you should see the following insight with predictions in the GoodData.CN. 
+The actual revenue is distinguished from the predicted revenue.
 
 
 ![Visualization of past and predicted revenue](content/images/prediction_insight.png)
-
-
-

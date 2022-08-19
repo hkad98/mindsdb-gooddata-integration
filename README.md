@@ -1,6 +1,6 @@
-# MindsDB Integration With GoodData Using Headless BI Layer
+# How To Maintain ML-Analytics Cycle With Headless BI?
 
-This repository belongs to the medium article [MindsDB Integration With GoodData Using Headless BI Layer]().
+This repository belongs to the medium article [How To Maintain ML-Analytics Cycle With Headless BI?]().
 
 For the step-by-step tutorial, please, follow [tutorial file](TUTORIAL.md).
 
