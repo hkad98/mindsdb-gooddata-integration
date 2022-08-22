@@ -1,6 +1,6 @@
 # How To Maintain ML-Analytics Cycle With Headless BI?
 
-This repository belongs to the medium article [How To Maintain ML-Analytics Cycle With Headless BI?]().
+This repository belongs to the medium article [How To Maintain ML-Analytics Cycle With Headless BI?](https://medium.com/gooddata-developers/how-to-maintain-ml-analytics-cycle-with-headless-bi-815aceac5027?source=friends_link&sk=45f102ce4a54a6ae8c4dddc900aeebb9).
 
 For the step-by-step tutorial, please, follow [tutorial file](TUTORIAL.md).
 
